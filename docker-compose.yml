@@ -42,6 +42,7 @@ services:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - xpack.security.enabled=true
+      - xpack.security.enrollment.enabled=true
     volumes:
       - ./elasticsearch:/usr/share/elasticsearch/data
     ports:
@@ -57,6 +58,9 @@ services:
       - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
     depends_on:
       - elastic
+    networks:
+      tempnet:
+        ipv4_address: 10.5.0.6
   kibana:
     image: docker.elastic.co/kibana/kibana:8.9.2
     container_name: kibana
@@ -64,9 +68,12 @@ services:
     ports:
       - 5601:5601
     environment:
-      - ELASTICSEARCH_HOSTS=http://10.5.0.5:9200
+      - ELASTICSEARCH_URL=http://10.5.0.5:9200
     depends_on:
       - elastic
+    networks:
+      tempnet:
+        ipv4_address: 10.5.0.7
 networks:
   tempnet:
     driver: bridge
