@@ -44,8 +44,9 @@ services:
       - discovery.type=single-node
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - xpack.security.enabled=true
-      - xpack.security.enrollment.enabled=true
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      - xpack.security.transport.ssl.enabled=false
     volumes:
       - ./elasticsearch:/usr/share/elasticsearch/data
     ports:
@@ -59,6 +60,7 @@ services:
     container_name: logstash
     volumes:
       - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
     depends_on:
       - elastic
     networks:

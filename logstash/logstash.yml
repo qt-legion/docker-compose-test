@@ -1,0 +1,9 @@
+modules:
+- name: netflow
+  var.elasticsearch.hosts: "10.5.0.5:9200"
+  var.elasticsearch.username: "elastic"
+  var.elasticsearch.password: "qtkqtk"
+  var.kibana.host: "0.0.0.0:5601"
+  var.kibana.username: "kibana"
+  var.kibana.password: "qtkqtk"
+  var.input.tcp.port: 9200
